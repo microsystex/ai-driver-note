@@ -1,0 +1,25 @@
+# MkDocs build directory
+site/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+*.egg-info/
+
+# Jupyter Notebook checkpoints (if using notebooks)
+.ipynb_checkpoints/
+
+# Temporary files and folders
+*.log
+*.tmp
+*.temp
+*.bak
+.DS_Store
+
+# System files
+Thumbs.db
