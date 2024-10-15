@@ -1,1 +1,25 @@
-site_name: My Docs
+site_name: AI Driver Note
+site_description: Notes on assisting software development through AI, written using the MkDocs framework
+site_author: Dyson Liu
+repo_url: https://github.com/microsystex/ai-driver-note
+
+theme: 
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+
+nav:
+  - Home: index.md
+  - Azure DevOps:
+    - Pipeline Permissions: azure-devops/pipeline-permission.md
+    - CLI Deployment: azure-devops/cli-artifacts.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+  - footnotes
+  - meta
+  - def_list  
