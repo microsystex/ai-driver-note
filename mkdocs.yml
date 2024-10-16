@@ -11,6 +11,10 @@ theme:
 
 nav:
   - Home: index.md
+  - Azure OpenAI:
+    - Azure OpenAI: azure-openai/azure-openai.md
+  - CLI Tools: 
+    - CLI Tools with Python: cli-tools/cli-with-python.md
   - Azure DevOps:
     - Pipeline Permissions: azure-devops/pipeline-permission.md
     - CLI Deployment: azure-devops/cli-artifacts.md
