@@ -2,6 +2,14 @@
 
 In this section, we will explain how to configure the necessary permissions in Azure Pipelines to ensure that the pipeline can successfully perform commit and push operations. This guide will help you understand how to use appropriate permissions and settings to enable the pipeline to automate these tasks.
 
+If permissions are not configured correctly, you may encounter the following error message:
+
+```plaintext
+remote: TF401027: You need the Git 'GenericContribute' permission to perform this action. Details: identity 'Build\7be59e48-a479-XXXX-a453-XXXXXXXXXXXX', scope 'repository'.
+```
+
+In this case, you can copy the GUID (7be59e48-a479-XXXX-a453-XXXXXXXXXXXX) from the error message and search for it in Azure DevOps to configure the required permissions. Detailed steps on how to do this are included below.
+
 ## 1. Permissions Required
 
 To automate commit and push operations, you typically need to configure specific permissions to allow the pipeline to make changes to the repository. Here are some essential steps and settings:
@@ -39,7 +47,7 @@ steps:
 
 3. **Configure Contribute Permission**:
 
-   - Set the **Contribute** permission to **Allow** to enable the pipeline to push and merge changes.
+   - Set the **Contribute** and **Contribute to pull requests** permission to **Allow** to enable the pipeline to push and merge changes.
 
 ### 2.2 Persistent Credentials
 
