@@ -14,6 +14,7 @@ nav:
   - Azure OpenAI:
     - Azure OpenAI: azure-openai/azure-openai.md
   - CLI Tools: 
+    - Python venv Guide: cli-tools/python-venv.md
     - CLI Tools with Python: cli-tools/cli-with-python.md
   - Azure DevOps:
     - Pipeline Permissions: azure-devops/pipeline-permission.md
