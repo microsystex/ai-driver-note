@@ -1,17 +1,15 @@
-# Welcome to MkDocs
+# About AI Driver Note
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This document primarily serves to record insights and notes gathered while using Azure OpenAI, with a focus on practical applications. Specifically, a CLI tool built with Python will be integrated into the Azure DevOps Pipeline to assist with Code Review tasks. The document is organized into three sections that cover Azure OpenAI, the CLI Tool, and Azure DevOps configuration.
 
-## Commands
+## Azure OpenAI
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+This section introduces the methods for calling the Azure OpenAI API.
 
-## Project layout
+## CLI Tool
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+This section explains how to develop a CLI tool using Python.
+
+## Azure DevOps
+
+This section covers how to store the CLI tool in Azure DevOps Artifacts and configure the Azure DevOps Pipeline to execute the CLI tool.
