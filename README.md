@@ -1,10 +1,17 @@
-# ai-driver-note
+# About AI Driver Note
 
-Notes on assisting software development through AI, written using the MkDocs framework.
+> **Note: This is a draft document and is still being written.**
 
-## Publishing to GitHub Pages
+This document primarily serves to record insights and notes gathered while using Azure OpenAI, with a focus on practical applications. Specifically, a CLI tool built with Python will be integrated into the Azure DevOps Pipeline to assist with Code Review tasks. The document is organized into three sections that cover Azure OpenAI, the CLI Tool, and Azure DevOps configuration.
 
-To publish the documentation to GitHub Pages, follow these steps:
-- Clone the repository to your local machine.
-- Install the required dependencies using `pip install -r requirements.txt`.
-- Run the command `mkdocs gh-deploy` to build and deploy the documentation to GitHub Pages.
+## Azure OpenAI
+
+This section introduces the methods for calling the Azure OpenAI API.
+
+## CLI Tool
+
+This section explains how to develop a CLI tool using Python.
+
+## Azure DevOps
+
+This section covers how to store the CLI tool in Azure DevOps Artifacts and configure the Azure DevOps Pipeline to execute the CLI tool.

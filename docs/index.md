@@ -1,5 +1,7 @@
 # About AI Driver Note
 
+> **Note: This is a draft document and is still being written.**
+
 This document primarily serves to record insights and notes gathered while using Azure OpenAI, with a focus on practical applications. Specifically, a CLI tool built with Python will be integrated into the Azure DevOps Pipeline to assist with Code Review tasks. The document is organized into three sections that cover Azure OpenAI, the CLI Tool, and Azure DevOps configuration.
 
 ## Azure OpenAI
