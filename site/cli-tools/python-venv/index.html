@@ -1,0 +1,1037 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes on assisting software development through AI, written using the MkDocs framework">
+      
+      
+        <meta name="author" content="Dyson Liu">
+      
+      
+      
+        <link rel="prev" href="../../azure-openai/azure-openai/">
+      
+      
+        <link rel="next" href="../cli-with-python/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+    
+    
+      
+        <title>Python venv Guide - AI Driver Note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-venv-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AI Driver Note" class="md-header__button md-logo" aria-label="AI Driver Note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Driver Note
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python venv Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/microsystex/ai-driver-note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Driver Note" class="md-nav__button md-logo" aria-label="AI Driver Note" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Driver Note
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/microsystex/ai-driver-note" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Azure OpenAI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Azure OpenAI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-openai/azure-openai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Azure OpenAI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CLI Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CLI Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Python venv Guide
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Python venv Guide
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-python-virtual-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Python Virtual Environments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-virtual-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Virtual Environment Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-activedeactivate-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Active/Deactivate venv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Active/Deactivate venv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-activating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Activating
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-deactivating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Deactivating
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-benefits-of-using-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Benefits of Using venv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Benefits of Using venv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-environment-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Environment Isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-easy-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Easy Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-multiple-python-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Multiple Python Versions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tips-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tips and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tips and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-example-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Example Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-with-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI Tools with Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Azure DevOps
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Azure DevOps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-devops/pipeline-permission/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pipeline Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-devops/cli-artifacts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-python-virtual-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Python Virtual Environments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-virtual-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Virtual Environment Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-activedeactivate-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Active/Deactivate venv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Active/Deactivate venv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-activating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Activating
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-deactivating" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Deactivating
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-benefits-of-using-venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Benefits of Using venv
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Benefits of Using venv">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-environment-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Environment Isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-easy-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Easy Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-multiple-python-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Multiple Python Versions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tips-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tips and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tips and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-example-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Example Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="python-venv-guide">Python venv Guide<a class="headerlink" href="#python-venv-guide" title="Permanent link">&para;</a></h1>
+<h2 id="1-python-virtual-environments">1. Python Virtual Environments<a class="headerlink" href="#1-python-virtual-environments" title="Permanent link">&para;</a></h2>
+<p>When developing Python projects, different projects may require different versions of the Python interpreter and dependencies. To avoid dependency conflicts between projects, we can use a virtual environment. A virtual environment is a self-contained Python runtime that allows each project to have its own independent dependencies, unaffected by other projects.</p>
+<p>Python's built-in <code>venv</code> module is a lightweight tool used to create virtual environments and manage project dependencies. It is easy to use, requires no additional external packages, and is an ideal choice for both beginners and experienced developers.</p>
+<h2 id="2-virtual-environment-setup">2. Virtual Environment Setup<a class="headerlink" href="#2-virtual-environment-setup" title="Permanent link">&para;</a></h2>
+<p>To create a virtual environment, navigate to your project’s root directory and run the following command:</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myenv
+</code></pre></div>
+
+<ul>
+<li><code>python</code>: This invokes the Python interpreter.</li>
+<li><code>-m venv</code>: Uses the built-in <code>venv</code> module to create a virtual environment.</li>
+<li><code>myenv</code>: This is the name of the virtual environment. You can replace it with any appropriate name.</li>
+</ul>
+<p>Once the command is executed, a directory named <code>myenv</code> will be created in the current directory, containing an isolated Python interpreter and a dedicated environment for installing packages.</p>
+<p><strong>Example</strong></p>
+<p>Let's say you want to set up a virtual environment for a project named <code>my_project</code>. Here's how you can create it:</p>
+<div class="codehilite"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>my_project_env
+</code></pre></div>
+
+<p>This creates a new virtual environment in a folder named <code>my_project_env</code>.</p>
+<h2 id="3-activedeactivate-venv">3. Active/Deactivate venv<a class="headerlink" href="#3-activedeactivate-venv" title="Permanent link">&para;</a></h2>
+<h3 id="31-activating">3.1 Activating<a class="headerlink" href="#31-activating" title="Permanent link">&para;</a></h3>
+<p>The activation process differs based on your operating system:</p>
+<ul>
+<li>
+<p><strong>Windows</strong>:
+  <code>bash
+  myenv\Scripts\activate</code></p>
+</li>
+<li>
+<p><strong>Linux/macOS</strong>:
+  <code>bash
+  source myenv/bin/activate</code></p>
+</li>
+</ul>
+<p>After activation, your terminal prompt will change to indicate that the virtual environment is active, typically showing something like <code>(myenv)</code> before the command prompt.</p>
+<h3 id="32-deactivating">3.2 Deactivating<a class="headerlink" href="#32-deactivating" title="Permanent link">&para;</a></h3>
+<p>To deactivate the virtual environment and return to the global Python environment, run the following command:</p>
+<div class="codehilite"><pre><span></span><code>deactivate
+</code></pre></div>
+
+<p>Once deactivated, the terminal prompt will return to normal, and the global Python environment will no longer be affected by the virtual environment's packages.</p>
+<h2 id="4-benefits-of-using-venv">4. Benefits of Using venv<a class="headerlink" href="#4-benefits-of-using-venv" title="Permanent link">&para;</a></h2>
+<h3 id="41-environment-isolation">4.1 Environment Isolation<a class="headerlink" href="#41-environment-isolation" title="Permanent link">&para;</a></h3>
+<p>One of the key benefits of <code>venv</code> is that it isolates the Python environment for each project. This prevents package version conflicts between projects. For example, one project may require version 2.x of the <code>requests</code> library, while another project might need version 3.x. Using virtual environments ensures that each project uses the correct version without interference.</p>
+<h3 id="42-easy-management">4.2 Easy Management<a class="headerlink" href="#42-easy-management" title="Permanent link">&para;</a></h3>
+<p><code>venv</code> is part of Python’s standard library, making it easy to use without requiring any external tools. Creating and removing virtual environments is straightforward, and each environment is self-contained, simplifying dependency management.</p>
+<h3 id="43-multiple-python-versions">4.3 Multiple Python Versions<a class="headerlink" href="#43-multiple-python-versions" title="Permanent link">&para;</a></h3>
+<p>With <code>venv</code>, you can maintain multiple Python environments with different versions of Python on the same machine. For example, you can create one environment with Python 3.8 and another with Python 3.10 to test how your code behaves across different Python versions.</p>
+<p><strong>Example: Managing Multiple Python Versions</strong></p>
+<p>You can specify the Python version when creating a virtual environment. If you want to use Python 3.8, you could run:</p>
+<div class="codehilite"><pre><span></span><code>python3.8<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myenv38
+</code></pre></div>
+
+<p>Similarly, for Python 3.10:</p>
+<div class="codehilite"><pre><span></span><code>python3.10<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myenv310
+</code></pre></div>
+
+<p>Each virtual environment will have its own Python interpreter and libraries.</p>
+<h2 id="5-tips-and-best-practices">5. Tips and Best Practices<a class="headerlink" href="#5-tips-and-best-practices" title="Permanent link">&para;</a></h2>
+<p>When working with Python virtual environments, it's essential to follow best practices to ensure a smooth development experience and avoid common pitfalls.</p>
+<h3 id="51-common-issues">5.1 Common Issues<a class="headerlink" href="#51-common-issues" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Issue</strong>: On Windows, when trying to activate a virtual environment using PowerShell, you might encounter an error related to the "execution policy restriction." This error occurs because PowerShell has built-in security settings that prevent the execution of scripts by default, including activation scripts for Python virtual environments.</p>
+</li>
+<li>
+<p><strong>Solution</strong>: To resolve this, you need to modify PowerShell’s execution policy, which controls the conditions under which scripts are allowed to run. The following command adjusts the policy to allow locally created scripts to run:</p>
+</li>
+</ul>
+<p><code>powershell
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></p>
+<p><strong>Explanation of the command parameters</strong>:</p>
+<ul>
+<li>
+<p><strong><code>Set-ExecutionPolicy</code></strong>: This is the PowerShell command used to change the current execution policy, which governs how and when scripts can be run on your system.</p>
+</li>
+<li>
+<p><strong><code>-ExecutionPolicy RemoteSigned</code></strong>: This parameter sets the execution policy to <code>RemoteSigned</code>. It means that scripts created on your local machine can be run without a signature, but any scripts downloaded from the internet (considered "remote") must be digitally signed by a trusted publisher. This provides a balance between allowing local development scripts and maintaining some security for remote content.</p>
+</li>
+<li>
+<p><strong><code>-Scope CurrentUser</code></strong>: This limits the execution policy change to the current user’s profile, meaning it will only affect your user account and not the entire system. This is a safer and more controlled approach than changing the execution policy system-wide, which could affect other users or services on the same machine.</p>
+</li>
+</ul>
+<p>After running this command, PowerShell will allow you to activate your Python virtual environments without encountering the "execution policy restriction" error, while still providing some protection for scripts obtained from external sources.</p>
+<h3 id="52-best-practices">5.2 Best Practices<a class="headerlink" href="#52-best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Use a dedicated virtual environment for each project</strong>: This ensures isolation between projects and prevents dependency conflicts.</p>
+</li>
+<li>
+<p><strong>Exclude virtual environments from version control</strong>: It's a good idea to add the virtual environment directory (e.g., <code>myenv/</code>) to your <code>.gitignore</code> file to prevent committing large, unnecessary files to your repository. Example <code>.gitignore</code> entry:
+  <code>myenv/</code></p>
+</li>
+</ul>
+<h2 id="6-example-workflow">6. Example Workflow<a class="headerlink" href="#6-example-workflow" title="Permanent link">&para;</a></h2>
+<p><strong>Example: Setting Up and Using a Virtual Environment</strong></p>
+<p>Suppose you are working on a project that requires Python 3.9 and two libraries: <code>requests</code> and <code>flask</code>. You can follow these steps:</p>
+<ol>
+<li>
+<p><strong>Create the virtual environment</strong>:
+   <code>bash
+   python3.9 -m venv myenv</code></p>
+</li>
+<li>
+<p><strong>Activate the virtual environment</strong>:</p>
+</li>
+<li><strong>Linux/macOS</strong>:
+     <code>bash
+     source myenv/bin/activate</code></li>
+<li>
+<p><strong>Windows</strong>:
+     <code>bash
+     myenv\Scripts\activate</code></p>
+</li>
+<li>
+<p><strong>Install the required dependencies</strong>:
+   With the environment activated, you can use <code>pip</code> to install the libraries:
+   <code>bash
+   pip install requests flask</code></p>
+</li>
+<li>
+<p><strong>Verify installed packages</strong>:
+   To check the installed packages, use:
+   <code>bash
+   pip list</code>
+   This command will show all installed packages in the virtual environment along with their versions.</p>
+</li>
+<li>
+<p><strong>Save dependencies</strong>:
+   To allow other developers to replicate your environment, you can save the current dependencies to a <code>requirements.txt</code> file:
+   <code>bash
+   pip freeze &gt; requirements.txt</code></p>
+</li>
+<li>
+<p><strong>Deactivate the virtual environment</strong>:
+   Once you're done with your work, deactivate the environment with:
+   <code>bash
+   deactivate</code></p>
+</li>
+</ol>
+<h2 id="7-conclusion">7. Conclusion<a class="headerlink" href="#7-conclusion" title="Permanent link">&para;</a></h2>
+<p>Using <code>venv</code> to manage Python environments is a simple and effective way to ensure project isolation and consistency. It is suitable for small-scale projects and individual developers. Additionally, by reducing the complexity of environment setup, it enhances collaboration with other developers and improves overall project stability and development efficiency.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>
