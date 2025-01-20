@@ -56,5 +56,3 @@ In the pipeline configuration, use `persistCredentials: true` to retain credenti
 ## 3. Summary
 
 To enable Azure Pipelines to automate commit and push operations, you need to configure the **{Project-Name} Build Service** account with **Contribute** permission and set **`persistCredentials: true`** in the checkout step. These settings ensure that the pipeline has sufficient permissions to modify the repository during the automation process.
-
-The file name **`pipeline-permission.md`** is concise and clear, suitable for describing all settings related to pipeline permissions, not only for commits and pushes but also for future permission configurations.
